@@ -1,0 +1,59 @@
+
+A.advantage of micro:
+1.scaling is easy
+
+
+
+B.dis-adv of micro:
+1.api latency can increase if the breakup has not been done perfectly.
+2.Debugging is tougher
+3.transaction management: each service can control only of its  own transaction
+
+C.How much micro?
+ans:It is decided by different phases of system:
+->Decomposition
+1.Decompose by business capability
+2.Decompose by subdomain (Domain Driven design)
+
+->Database
+1.dB per service
+2.commercial db
+
+->Communication
+1.via API
+
+->Integration
+1.via API
+
+->monitoring
+
+
+D.decomposition patterns: that decide how much small your service is
+by subdomain : Payment domain (forward, reverse)
+by business capability : login, order management, product management, inventory managemet,login , billing , payment
+
+E.SAGA/CQRS pattern:
+  Data management in microservice:
+     Database for each individual service: used widely
+         1.maintaining transaction property in all tables: SAGA used for sequencing of local transaction. i,e falure event
+         occurs in any of the service then sent failure event in prev services and prev service roll back it's local transaction.
+
+           it's two type: a.choreography: it's maintaining failure & success queue and all the service is listening to those
+                            queue.Whenever any event published in any of the queue , all the service listens and behave accordingly.
+                          b.orchestrator:All the service connected to a node called orchestrator and it's managing events.
+
+
+         2.join query in diff service database: CQRS(Command(create,update,delete) Query(read query on common view/db) Request Segregation).
+         After any write command runs on any particular service , some event published and that has been listened by common view.
+
+     Shared database: not used so much
+
+
+F.STRANGLER Pattern:
+   mono->micro breakup : while migrating from monolith to microservice we put a controller on the top which initially sends 1-10%
+   hits to the microservice to test the scale...then gradually move to 100%
+
+G.Scale from zero to millions of users: (written on copy)
+  1.single server:
+
+
