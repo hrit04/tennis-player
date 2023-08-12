@@ -1,0 +1,13 @@
+
+
+
+1.In java a single file can have only 1 public class?
+Ans: Main method can only be under a public class & public class name should be equal to the file name.
+
+2.Java is static type language or not?
+Ans:yes.cz variable should be declared with data type.Thats why
+
+3.Java is a strong type language or not?
+Ans:yes.cz every datatype has some range of values.
+
+4.const variable should be CAPITAL LETTERS. (static final JAYPUR=9;)

@@ -1,0 +1,16 @@
+
+
+SQL:
+
+1.structured: schema is predefined.
+2.nature: data is centralized (all the tables will be in one table)
+3.scalability: Horizental scale:Sharding: (not well supported in SQL)
+4.property: ACID (Data integrity)
+
+
+NOSQL:
+
+1.structured: unstructure data.
+2.nature:
+3.scalability:
+4.property:

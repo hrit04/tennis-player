@@ -1,0 +1,6 @@
+
+
+1.HASHING: Rebalancing is needed when new server added.
+2.But Rebalancing is problematic when number of node is not constant.
+3.Consistent hashing reduces the rebalancing by 1/n % of total number of keys. (Motive is minimal number of rebalancing)
+4.Consisting hashing works very well with virtual nodes concept.

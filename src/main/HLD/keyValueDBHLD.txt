@@ -1,0 +1,60 @@
+
+
+Goals:
+
+1.scalability
+2.Decentralization
+3.Eventual consistency
+
+steps:
+1.Partition -> consistent hashing
+2.Replication -> { coordinator -> main node , preference list -> where replicas are stored }
+N.B: coordinators knows about its preference list
+
+
+3. Get & put operation.
+-> Get operation:
+
+   when request comes in load balancer:
+   two type of load balancer:
+     a. General load balancer: Send the request in any of the node, then if the key does not belong to the preference table of that node
+     then hopping happend and the control given to the next node in the circle, so fetch latency get increased.
+
+     b. Partition Awared load balancer: It already knows which server in the circle holds the key, so it sends the req
+        to that server.So here the latency is lower.
+
+-> For put operation after the coordinator get update, the async updation is done in all the servers in the preference list.
+    But what if the some node get down, so all the nodes are maintaining some version of the data i,e (s1,1,ABX) (s2,2,ABXY)
+    (s3,2,ABXZ)
+
+           s1
+          /  \
+         s2--s3
+
+  if there any write request performs at any node then the async data (nodeid,version,data) is updated in all the nodes
+  It is called vector clock algo.This is how data versioning done.
+
+  when a get request is called, then the same set of data sent to client then client performs some last write algo to
+  find the latest one.and it then performs some put operation to update all the node with latest data.
+
+  CAP: SO it sacrifices Consistency cz first time the get request got the stale data , next time onward we got the latest data.
+
+  So dynamo db follows the AP in CAP.
+
+
+
+4.Data versioning -> discussed above.
+
+
+5.Gossip Protocol -> all the servers in the circle mantains the informations like heartbeat of all the other servers,
+  so if any of the server got down diagnosied by atleast 2 server, then it is considered as down, so they just gossip with each other.
+
+
+6.Merkle Tree -> it is a binary key type of concept used to find out range of nodes in the replicas which are not updated.
+
+
+
+
+This key-value storage feature is used in add to cart of amazon
+
+
